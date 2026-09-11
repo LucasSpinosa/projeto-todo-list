@@ -1,0 +1,9 @@
+.linkText{
+    font-size: 1.25rem;
+}
+
+.linkText:hover{
+    text-decoration: underline;
+    transition: 0.5s;
+    font-size: 1.35rem;
+}

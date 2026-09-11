@@ -1,28 +1,35 @@
 import { useState } from "react";
-import {FaBars} from "react-icons/fa";
+import { FaBars, FaClipboardList } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
+
+import { IoIosCreate } from "react-icons/io";
+
+import styles from "./Header.module.css"
 
 const Header = () => {
   const [activeItem, setActiveItem] = useState("Criar Tarefas");
 
   const menuItems = [
-    { name: "Criar Tarefas", icon: "bi-house" },
-    { name: "Gerenciar Tarefas", icon: "bi-speedometer2" },
-    { name: "Editar Tarefas", icon: "bi-table" },
+    { name: "Criar Tarefas", icon: <IoIosCreate size={20}/> },
+    { name: "Gerenciar Tarefas", icon: <FaClipboardList size={20} /> },
+    { name: "Editar Tarefas", icon: <CiEdit size={20}/> },
   ];
 
   return (
     <>
       <header>
         {/* Mobile Menu */}
-        <div className="
+        <div
+          className="
           d-flex 
           d-md-none 
           justify-content-between 
           bg-body-tertiary 
           p-4 
           align-items-center
-        ">
-          <span className="display-4">GerenciaLista</span>
+        "
+        >
+          <span className="display-4 fw-semibold">GerenciaLista</span>
           <button
             className="btn btn-secondary"
             type="button"
@@ -30,7 +37,7 @@ const Header = () => {
             data-bs-target="#offcanvasScrolling"
             aria-controls="offcanvasScrolling"
           >
-            <FaBars/>
+            <FaBars />
           </button>
         </div>
 
@@ -44,7 +51,7 @@ const Header = () => {
         >
           <div className="offcanvas-header">
             <h5 className="offcanvas-title" id="offcanvasScrollingLabel">
-              Offcanvas with body scrolling
+              Selecione a página desejada!
             </h5>
             <button
               type="button"
@@ -54,9 +61,28 @@ const Header = () => {
             ></button>
           </div>
           <div className="offcanvas-body">
-            <p>
-              Try scrolling the rest of the page to see this option in action.
-            </p>
+            <ul className="nav nav-pills flex-column mb-auto">
+              {menuItems.map((item) => {
+                const isActive = activeItem === item.name;
+                return (
+                  <li key={item.name} className="nav-item">
+                    <button
+                      type="button"
+                      className={`nav-link text-start w-100 ${
+                        isActive ? "active" : "link-body-emphasis"
+                      }`}
+                      aria-current={isActive ? "page" : undefined}
+                      onClick={() => setActiveItem(item.name)}
+                    >
+                      <div className="d-flex align-items-center">
+                      {item.icon}
+                      <span className={`ms-1 ${styles.linkText}`}>{item.name}</span>
+                    </div>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
 
@@ -87,8 +113,10 @@ const Header = () => {
                     aria-current={isActive ? "page" : undefined}
                     onClick={() => setActiveItem(item.name)}
                   >
-                    <i className={`bi ${item.icon} me-2`}></i>
-                    {item.name}
+                    <div className="d-flex align-items-center">
+                      {item.icon}
+                      <span className={`ms-1 ${styles.linkText}`}>{item.name}</span>
+                    </div>
                   </button>
                 </li>
               );
