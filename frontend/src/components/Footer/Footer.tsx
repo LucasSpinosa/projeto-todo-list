@@ -10,7 +10,8 @@ const Footer = () => {
   return (
     <footer
       className="
-      py-3 
+      py-5
+      py-md-3 
       border-top
     "
     >
@@ -24,7 +25,8 @@ const Footer = () => {
       >
         <p
           className="
-          col-md-3 
+          col-md-5
+          col-lg-3
           mb-0 
           text-body-secondary
           mx-auto

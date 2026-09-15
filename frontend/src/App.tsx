@@ -8,13 +8,17 @@ import Footer from "./components/Footer/Footer";
 function App() {
   return (
     <>
-      <Header />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/edit-tasks" element={<EditTasks />} />
-          <Route path="/manage-tasks" element={<ManageTasks />} />
-        </Routes>
+        <div className="d-flex flex-column flex-md-row">
+          <Header />
+          <div className="d-flex flex-column w-100">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/edit-tasks" element={<EditTasks />} />
+              <Route path="/manage-tasks" element={<ManageTasks />} />
+            </Routes>
+          </div>
+        </div>
       </BrowserRouter>
       <Footer />
     </>
