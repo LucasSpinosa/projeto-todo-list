@@ -95,7 +95,7 @@ const Header = () => {
 
         {/* Tablet / Desktop */}
         <div
-          className="d-none d-md-block d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary vh-100"
+          className="d-none d-md-block d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary h-100"
           style={{ width: "280px" }}
         >
           <a

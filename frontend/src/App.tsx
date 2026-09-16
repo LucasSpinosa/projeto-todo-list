@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import EditTasks from "./pages/EditTasks";
 import ManageTasks from "./pages/ManageTasks";
 import Header from "./components/Header/Header";
