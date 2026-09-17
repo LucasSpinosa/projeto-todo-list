@@ -25,6 +25,7 @@ const Home = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset
   } = useForm<RegisterData>({ resolver: zodResolver(registerSchema) });
 
   const handleSendForm = (data: RegisterData) => {
@@ -43,7 +44,9 @@ const Home = () => {
       }
     }
 
-    alert("Tarefa inserida!")
+    alert("Tarefa criada com sucesso!")
+
+    reset();
   };
 
   return (
