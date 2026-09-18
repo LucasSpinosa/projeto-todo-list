@@ -1,3 +1,5 @@
+"use no memo"
+
 import styles from "./Home.module.css";
 
 import { useForm } from "react-hook-form";
@@ -21,22 +23,20 @@ const registerSchema = z.object({
 
 type RegisterData = z.infer<typeof registerSchema>;
 
-const defaultValues: RegisterData = {
-  title: "",
-  description: "",
-  steps: "",
-  priority: "" as any, // Garante que o select fique na opção padrão
-};
-
 const Home = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
+    reset
   } = useForm<RegisterData>({
     resolver: zodResolver(registerSchema),
-    defaultValues
+    defaultValues: {
+      title: "",
+      description: "",
+      steps: "",
+      priority: "low"
+    }
   });
 
   const handleClearFormFields = () => {
@@ -44,6 +44,7 @@ const Home = () => {
   }
 
   const handleSendForm = (data: RegisterData) => {
+    console.log("DADOS RECEBIDOS:", data);
     //Trocar por API depois
     const tasks = localStorage.getItem("tasks");
 
@@ -143,7 +144,7 @@ const Home = () => {
                   {...register("priority")}
                   id="priority"
                 >
-                  <option disabled value="">
+                  <option value="">
                     Selecione uma prioriedade
                   </option>
                   <option value="low">Baixa</option>
