@@ -3,6 +3,7 @@ import styles from "./Home.module.css";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { toast } from "sonner";
 
 const registerSchema = z.object({
   title: z.string().min(1, "É obrigatório informar o título da tarefa!"),
@@ -20,33 +21,49 @@ const registerSchema = z.object({
 
 type RegisterData = z.infer<typeof registerSchema>;
 
+const defaultValues: RegisterData = {
+  title: "",
+  description: "",
+  steps: "",
+  priority: "" as any, // Garante que o select fique na opção padrão
+};
+
 const Home = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset
-  } = useForm<RegisterData>({ resolver: zodResolver(registerSchema) });
+    reset,
+  } = useForm<RegisterData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues
+  });
+
+  const handleClearFormFields = () => {
+    reset();
+  }
 
   const handleSendForm = (data: RegisterData) => {
     //Trocar por API depois
     const tasks = localStorage.getItem("tasks");
 
+    const newTask = { ...data, status: "working" };
+
     if (tasks == null) {
-      localStorage.setItem("tasks", JSON.stringify([data]));
+      localStorage.setItem("tasks", JSON.stringify([newTask]));
     } else {
       if (tasks != null) {
         const arrayTasks = JSON.parse(tasks);
 
-        arrayTasks.push(data);
+        arrayTasks.push(newTask);
 
         localStorage.setItem("tasks", JSON.stringify(arrayTasks));
       }
     }
 
-    alert("Tarefa criada com sucesso!")
+    toast.success("Tarefa salva com sucesso!");
 
-    reset();
+    handleClearFormFields();
   };
 
   return (
@@ -125,7 +142,6 @@ const Home = () => {
                   className="form-select w-md-25"
                   {...register("priority")}
                   id="priority"
-                  defaultValue={""}
                 >
                   <option disabled value="">
                     Selecione uma prioriedade
@@ -152,7 +168,7 @@ const Home = () => {
                 >
                   <b>{isSubmitting ? "Enviando" : "Salvar"}</b>
                 </button>
-                <button className={`btn btn-secondary me-3 ${styles.button}`}>
+                <button type="button" onClick={handleClearFormFields}  className={`btn btn-secondary me-3 ${styles.button}`}>
                   <b>Limpar Campos</b>
                 </button>
               </div>

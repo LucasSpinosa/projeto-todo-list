@@ -4,10 +4,23 @@ import EditTasks from "./pages/EditTasks";
 import ManageTasks from "./pages/ManageTasks";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import { Toaster } from "sonner";
 
 function App() {
   return (
     <>
+      <Toaster
+        position="bottom-center"
+        richColors
+        toastOptions={{
+          style: {
+            width: "420px", 
+            maxWidth: "90vw", 
+            padding: "16px 20px", 
+            fontSize: "1rem",
+          },
+        }}
+      />
       <BrowserRouter>
         <div className="d-flex flex-column flex-md-row">
           <Header />
