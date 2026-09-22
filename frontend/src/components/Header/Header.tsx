@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FaBars, FaClipboardList } from "react-icons/fa";
-import { CiEdit } from "react-icons/ci";
 
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +13,6 @@ const Header = () => {
   const menuItems = [
     { name: "Criar Tarefas", icon: <IoIosCreate size={20}/>, link: "/" },
     { name: "Gerenciar Tarefas", icon: <FaClipboardList size={20} />, link: "/manage-tasks" },
-    { name: "Editar Tarefas", icon: <CiEdit size={20}/>, link: "/edit-tasks" },
   ];
   
   const navigate = useNavigate();
@@ -76,6 +74,7 @@ const Header = () => {
                         isActive ? "active" : "link-body-emphasis"
                       }`}
                       aria-current={isActive ? "page" : undefined}
+                      data-bs-dismiss="offcanvas"
                       onClick={() => {
                         setActiveItem(item.name)
                         navigate(item.link)

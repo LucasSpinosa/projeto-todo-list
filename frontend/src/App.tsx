@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import EditTasks from "./pages/EditTasks";
-import ManageTasks from "./pages/ManageTasks";
+import ManageTasks from "./pages/ManageTasks/ManageTasks";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { Toaster } from "sonner";
