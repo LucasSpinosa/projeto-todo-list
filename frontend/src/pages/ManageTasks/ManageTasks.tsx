@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 
-import styles from "./ManageTasks.module.css"
+import styles from "./ManageTasks.module.css";
 
 import type { Task } from "../../types/task";
 import { useState } from "react";
@@ -31,22 +31,21 @@ const ManageTask = () => {
     reset();
   };
 
-  const [tasks, setTasks] = useState<Task[]>()
+  const [tasks, setTasks] = useState<Task[]>();
 
-  const handleSendForm = (data: SearchFormData) => {
+  const handleSendForm = () => {
     //Trocar para API depois
     // let keywords = data.keyword.split(',');
-    
+
     // keywords = keywords
     //   .map((keyword) => keyword.trim())
     //   .filter((keyword) => keyword !== "");
 
-    if(!localStorage.getItem("tasks")){
+    if (!localStorage.getItem("tasks")) {
       setTasks([]);
-    }
-    else{
+    } else {
       console.log(JSON.parse(localStorage.getItem("tasks")!));
-      setTasks(JSON.parse(localStorage.getItem("tasks")!))
+      setTasks(JSON.parse(localStorage.getItem("tasks")!));
     }
   };
 
@@ -150,10 +149,76 @@ const ManageTask = () => {
         </div>
         {tasks && tasks.length == 0 && (
           <>
-          <div className="my-4 w-100 text-center">
-            <span>Não foram encontradas tarefas para exibir.</span>
-          </div>
+            <div className="my-4 w-100 text-center">
+              <span>Não foram encontradas tarefas para exibir.</span>
+            </div>
           </>
+        )}
+        {tasks && tasks.length >= 1 && (
+          <div className="accordion mt-4 mb-3" id="accordionPanelsStayOpenExample">
+            {tasks.map((task) => (
+              <div className="accordion-item">
+                <h2 className="accordion-header">
+                  <button
+                    className={`accordion-button ${task.status === "working" ? "bg-body" : "bg-success"}`}
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#panelsStayOpen-collapse${task.id}`}
+                    aria-expanded="true"
+                    aria-controls={`panelsStayOpen-collapse${task.id}`}
+                  >
+                    <span
+                      className={`fw-bold ${task.status === "working" ? "text-black" : "text-white"}`}
+                    >
+                      {task.title}
+                    </span>
+                  </button>
+                </h2>
+                <div
+                  id={`panelsStayOpen-collapse${task.id}`}
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <p>
+                      <span className="fw-bold">Descrição: </span>3
+                      {task.description}
+                    </p>
+                    {task.steps.length >= 1 && (
+                      <>
+                        <span className="fw-bold"> Passos da Tarefa:</span>
+                        <div className="form-check mt-3 ms-3">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="check1"
+                            name="option1"
+                            value="something"
+                            checked
+                            disabled
+                          />
+                          <label className="form-check-label">Option 1</label>
+                        </div>
+                      </>
+                    )}
+                    <p className="fw-bold mt-3">
+                      Prioridade:{" "}
+                      <span
+                        className={`
+                        ${task.priority === "low" && "text-info"} 
+                        ${task.priority === "medium" && "text-warning"} 
+                        ${task.priority === "high" && "text-danger"}
+                        `}
+                      >
+                        {task.priority === "low" && "Baixa"}
+                        {task.priority === "medium" && "Média"}
+                        {task.priority === "high" && "Alta"}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </main>
     </>

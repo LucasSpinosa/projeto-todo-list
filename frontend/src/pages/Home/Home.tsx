@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
+import { useState } from "react";
 
 const registerSchema = z.object({
   title: z.string().min(1, "É obrigatório informar o título da tarefa!"),
@@ -43,12 +44,15 @@ const Home = () => {
     reset();
   }
 
+  const [id, setId] = useState<number>(1);
+
   const handleSendForm = (data: RegisterData) => {
     console.log("DADOS RECEBIDOS:", data);
     //Trocar por API depois
     const tasks = localStorage.getItem("tasks");
 
-    const newTask = { ...data, status: "working" };
+    const newTask = { ...data, status: "working", id: id };
+    setId((prevState) => prevState+1);
 
     if (tasks == null) {
       localStorage.setItem("tasks", JSON.stringify([newTask]));

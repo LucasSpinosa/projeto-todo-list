@@ -3,5 +3,6 @@ export interface Task {
     title: string;
     description: string;
     steps: string[];
-    priority: string;
+    priority: "low" | "medium" | "high";
+    status: "working" | "done";
 }
