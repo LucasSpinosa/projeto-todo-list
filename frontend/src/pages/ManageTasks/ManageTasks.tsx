@@ -155,9 +155,12 @@ const ManageTask = () => {
           </>
         )}
         {tasks && tasks.length >= 1 && (
-          <div className="accordion mt-4 mb-3" id="accordionPanelsStayOpenExample">
+          <div
+            className="accordion mt-4 mb-3"
+            id="accordionPanelsStayOpenExample"
+          >
             {tasks.map((task) => (
-              <div className="accordion-item">
+              <div className="accordion-item" key={task.id}>
                 <h2 className="accordion-header">
                   <button
                     className={`accordion-button ${task.status === "working" ? "bg-body" : "bg-success"}`}
@@ -214,6 +217,21 @@ const ManageTask = () => {
                         {task.priority === "high" && "Alta"}
                       </span>
                     </p>
+                    <div className="d-flex justify-content-end">
+                      <button
+                        className="btn btn-success me-4"
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                      >
+                        <b>Concluir</b>
+                      </button>
+                      <button className="btn btn-primary me-4">
+                        <b>Editar</b>
+                      </button>
+                      <button className="btn btn-danger me-2">
+                        <b>Deletar</b>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -221,6 +239,50 @@ const ManageTask = () => {
           </div>
         )}
       </main>
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        z-index="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                Concluir Tarefa
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              Tem certeza que deseja marcar essa tarefa como concluída?
+            </div>
+            <div className="modal-footer">
+              <button 
+                type="button" 
+                className="btn btn-success me-4"
+                data-bs-dismiss="modal"
+              >
+                <b>Confirmar</b>
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary me-3"
+                data-bs-dismiss="modal"
+              >
+                <b>Cancelar</b>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
